@@ -1,0 +1,14 @@
+.help-block {
+    color: red;
+}
+
+span.select2-container {
+    width: 100% !important;
+}
+
+.date-search {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    border-color: rgba(198, 193, 198, 0.93)
+}
