@@ -56,9 +56,9 @@ class FoodSearch extends Food
 
         // Filter by multiple ingredient IDs
         if (!empty($this->ingredientIds)) {
-            $query->joinWith('foodIngredients')
-                ->joinWith('foodIngredients.ingredient')
-                ->andFilterWhere(['in', 'ingredients.id', $this->ingredientIds]);
+            $query->andFilterWhere(['food_ingredients.ingredient_id' => $this->ingredientIds])
+                ->groupBy('food.id')
+                ->having(['COUNT(*)' => count($this->ingredientIds)]);
         }
 
         // Add other filtering conditions

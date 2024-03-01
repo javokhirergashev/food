@@ -97,6 +97,12 @@ class FoodController extends Controller
     public function actionUpdate($id)
     {
         $model = Food::findOne($id);
+        $ingredients = FoodIngredients::find()
+            ->select('ingredient_id')
+            ->where(['food_id' => $model->id])
+            ->asArray()
+            ->all();
+
         if (!$model) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
@@ -118,6 +124,7 @@ class FoodController extends Controller
 
             return $this->redirect(['index']);
         }
+        $model->ingredientIds = array_column($ingredients, 'ingredient_id');
 
         return $this->render('update', [
             'model' => $model,

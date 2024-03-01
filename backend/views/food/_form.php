@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
+/** @var $oldIngredients [] */
 /** @var common\models\Food $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
@@ -18,11 +19,15 @@ use yii\widgets\ActiveForm;
     <div class="card-box">
         <div class="row">
             <div class="col-6">
-                <?= $form->field($model, 'ingredientIds[]')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Ingredients::find()->where(['status' => Ingredients::STATUS_ACTIVE])->all(), 'id', 'name'), // Assuming $items is your array of data
-                    'options' => ['placeholder' => 'Masalliqlarni tanlang...', 'multiple' => true],
+                <?=
+                $form->field($model, 'ingredientIds')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Ingredients::find()->where(['status' => Ingredients::STATUS_ACTIVE])->all(), 'id', 'name'),
+                    'options' => [
+                        'placeholder' => 'Masalliqlarni tanlang...',
+                        'multiple' => true,
+                    ],
                     'pluginOptions' => [
-                        'allowClear' => true
+//                        'allowClear' => true,
                     ],
                 ]); ?>
                 <?= $form->field($model, 'status')->dropDownList([
